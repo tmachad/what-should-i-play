@@ -1,22 +1,21 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+
+import { AppRoutingModule } from 'src/app/app-routing.module';
 
 import { AppComponent } from './app.component';
 import { WelcomeFieldComponent } from './welcome-field/welcome-field.component';
-
-const appRoutes: Routes = [
-  { path: '', component: WelcomeFieldComponent }
-];
+import { GameChooserComponent } from './game-chooser/game-chooser.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WelcomeFieldComponent
+    WelcomeFieldComponent,
+    GameChooserComponent
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes)
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
