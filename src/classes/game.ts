@@ -1,5 +1,5 @@
 export class Game {
     iconUrl: string;
-    name: string;
+    title: string;
     id: string;
 }
