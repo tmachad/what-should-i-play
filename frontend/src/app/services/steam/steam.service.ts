@@ -1,12 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
 
 import { environment as env } from 'src/environments/environment';
 
 import { Game } from 'src/classes/game';
-import { SteamPlayerGamesList } from 'src/classes/steam-player-games-response';
 
 @Injectable({
   providedIn: 'root'
