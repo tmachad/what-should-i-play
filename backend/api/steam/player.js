@@ -14,6 +14,9 @@ router.route('/ownedgames').get(parseUrlEncoded, parseJSON, (req, res) => {
         request.get(url, {json: true}, (err, response, body) => {
             if (err) {
                 throw err;
+            } else if (body.response.games == undefined) {
+                console.log('games is undefined, possibly rate limited? sending empty games array');
+                res.send([]);
             } else {
                 let games = [];
                 for (const game of body.response.games) {
