@@ -15,7 +15,15 @@ router.route('/ownedgames').get(parseUrlEncoded, parseJSON, (req, res) => {
             if (err) {
                 throw err;
             } else {
-                res.send(body);
+                let games = [];
+                for (const game of body.response.games) {
+                    games.push({
+                        iconUrl: game.img_icon_url ? `http://media.steampowered.com/steamcommunity/public/images/apps/${game.appid}/${game.img_icon_url}.jpg` : null,
+                        title: game.name,
+                        id: game.appid
+                    });
+                }
+                res.send(games);
             }
         });
     } catch (err) {

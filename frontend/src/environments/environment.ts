@@ -4,9 +4,7 @@
 
 export const environment = {
   production: false,
-  steam: {
-    apiKey: 'AB908FB7ACA211335A3EE20C304526B9'
-  }
+  apiRoot: 'http://localhost:8000/api'
 };
 
 /*

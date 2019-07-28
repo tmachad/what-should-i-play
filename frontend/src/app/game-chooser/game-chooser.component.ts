@@ -16,12 +16,9 @@ export class GameChooserComponent implements OnInit {
   constructor(private route: ActivatedRoute, private steam: SteamService) { }
 
   ngOnInit() {
-    console.log('Game Chooser');
     const steamId = this.route.snapshot.queryParamMap.get("steamId");
-    console.log(`Steam ID: ${steamId}`);
     if (steamId) {
       this.steam.getGames(steamId).subscribe((g) => {
-        console.log(g);
         this.games = g;
       },
       (err: any) => {

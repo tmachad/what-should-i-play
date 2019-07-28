@@ -13,30 +13,14 @@ import { SteamPlayerGamesList } from 'src/classes/steam-player-games-response';
 })
 export class SteamService {
 
-  private API_ROOT_PLAYER: string = 'http://api.steampowered.com/IPlayerService';
-  private API_ROOT_STORE: string;
+  private static readonly API_ROOT: string = `${env.apiRoot}/steam`;
+  private static readonly API_ROOT_PLAYER: string = `${SteamService.API_ROOT}/player`;
+  private static readonly API_ROOT_STORE: string;
 
   constructor(private http: HttpClient) { }
 
   public getGames(steamId: string): Observable<Game[]> {
-    console.log(`Getting games for user ${steamId}`);
-    let url = `${this.API_ROOT_PLAYER}/GetOwnedGames/v1/?key=${env.steam.apiKey}&format=json&input_json={"steamid":${steamId},"include_appinfo":true,"include_played_free_games":true}`;
-    console.log(url);
-    return this.http.get(url).pipe(
-      tap((res: any) => {
-        console.log(res)
-      }),
-      map((res: SteamPlayerGamesList) => {
-        const games: Game[] = [];
-        for (const g of res.response.games) {
-          games.push({
-            iconUrl: g.img_icon_url,
-            title: g.name,
-            id: g.appid
-          });
-        }
-        return games;
-      })
-    );
+    let url = `${SteamService.API_ROOT_PLAYER}/${steamId}/ownedgames`;
+    return this.http.get<Game[]>(url);
   }
 }
