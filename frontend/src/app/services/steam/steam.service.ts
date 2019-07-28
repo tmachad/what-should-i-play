@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 import { environment as env } from 'src/environments/environment';
 
@@ -19,8 +19,13 @@ export class SteamService {
   constructor(private http: HttpClient) { }
 
   public getGames(steamId: string): Observable<Game[]> {
-    let url = `${this.API_ROOT_PLAYER}/GetOwnedGames/v1/?key=${env.steam.apiKey}&format=json&input_json={"steamid":"${steamId}","include_appinfo":true,"include_played_free_games":true}`
+    console.log(`Getting games for user ${steamId}`);
+    let url = `${this.API_ROOT_PLAYER}/GetOwnedGames/v1/?key=${env.steam.apiKey}&format=json&input_json={"steamid":${steamId},"include_appinfo":true,"include_played_free_games":true}`;
+    console.log(url);
     return this.http.get(url).pipe(
+      tap((res: any) => {
+        console.log(res)
+      }),
       map((res: SteamPlayerGamesList) => {
         const games: Game[] = [];
         for (const g of res.response.games) {
