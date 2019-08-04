@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeFieldComponent implements OnInit {
 
+  private steamId: string;
+
   constructor() { }
 
   ngOnInit() {
