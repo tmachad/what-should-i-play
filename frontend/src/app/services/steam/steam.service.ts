@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { environment as env } from 'src/environments/environment';
 
 import { Game } from 'src/classes/game';
+import { Player } from 'src/classes/player';
 
 @Injectable({
   providedIn: 'root'
@@ -20,5 +21,10 @@ export class SteamService {
   public getGames(steamId: string): Observable<Game[]> {
     let url = `${SteamService.API_ROOT_PLAYER}/${steamId}/ownedgames`;
     return this.http.get<Game[]>(url);
+  }
+
+  public getPlayerInfo(steamId: string): Observable<Player> {
+    let url = `${SteamService.API_ROOT_PLAYER}/${steamId}`;
+    return this.http.get<Player>(url);
   }
 }
