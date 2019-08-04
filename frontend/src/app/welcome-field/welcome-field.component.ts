@@ -30,10 +30,14 @@ export class WelcomeFieldComponent implements OnInit {
     } else {
       this.loading = true;
       this.steam.getPlayerInfo(this.steamId).subscribe((player: Player) => {
-        if (player.public) {
-          this.router.navigate(['games'], {queryParams: { steamId: this.steamId }});
+        if (player.exists) {
+          if (player.public) {
+            this.router.navigate(['games'], {queryParams: { steamId: this.steamId }});
+          } else {
+            this.alertMsg = `The profile for ${player.profileName} isn't public.`;
+          }
         } else {
-          this.alertMsg = `The profile for ${player.profileName} isn't public.`;
+          this.alertMsg = `There is no player with ID '${this.steamId}'`;
         }
         this.loading = false;
       }, (err: any) => {

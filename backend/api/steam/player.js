@@ -42,17 +42,24 @@ router.get(parseUrlEncoded, parseJSON, (req, res) => {
         request.get(url, {json: true}, (err, response, body) => {
             if (err) {
                 throw err;
-            } else if (!body || !body.response || !body.response.players || !body.response.players[0]) {
+            } else if (!body || !body.response || !body.response.players) {
                 console.log('Something is undefined, possibly rate limited? Sending null player.');
                 console.log(body);
                 res.send(null);
             } else {
-                const player = body.response.players[0];
-                res.send({
-                    steamId: player.steamid,
-                    profileName: player.personaname,
-                    public: player.communityvisibilitystate === 3
-                });
+                if (body.response.players.length > 0) {
+                    const player = body.response.players[0];
+                    res.send({
+                        steamId: player.steamid,
+                        profileName: player.personaname,
+                        public: player.communityvisibilitystate === 3,
+                        exists: true
+                    });
+                } else {
+                    res.send({
+                        exists: false
+                    });
+                }
             }
         });
     } catch (err) {
