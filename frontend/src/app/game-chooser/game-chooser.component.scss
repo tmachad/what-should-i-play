@@ -1,3 +1,13 @@
-#first-row {
-    padding-top: 40%;
+table {
+    position: relative;
+}
+
+#table-container {
+    max-height: 50vh;
+    overflow: auto;
+}
+
+th {
+    position: sticky;
+    top: 0;
 }

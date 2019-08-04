@@ -1,4 +1,4 @@
-<div id="first-row" class="row">
+<div class="row">
   <div class="col text-center">
     <!-- Choose Game Button -->
     <button class="btn btn-primary" [disabled]="!(games && games.length > 0)" type="button">
@@ -16,35 +16,37 @@
 <div class="row justify-content-center pt-3">
   <div class="col-12 col-md-6 col-lg-4">
     <!-- Game List -->
-    <table class="table">
-      <thead>
-        <tr>
-          <th colspan="2" class="text-center">
-            Games
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <ng-container *ngIf="games && games.length > 0; else noGamesWarning">
-          <tr *ngFor="let game of games">
-            <td>
-              <!-- game icon -->
-              <img src="{{game.iconUrl}}">
-            </td>
-            <td>
-              <!-- game title -->
-              {{game.title}}
-            </td>
-          </tr>
-        </ng-container>
-        <ng-template #noGamesWarning>
+    <div id="table-container">
+      <table class="table">
+        <thead>
           <tr>
-            <td colspan="2">
-              Hmm, you don't seem to have any games...
-            </td>
+            <th colspan="2" class="text-center">
+              Games
+            </th>
           </tr>
-        </ng-template>
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          <ng-container *ngIf="games && games.length > 0; else noGamesWarning">
+            <tr *ngFor="let game of games">
+              <td>
+                <!-- game icon -->
+                <img src="{{game.iconUrl}}">
+              </td>
+              <td>
+                <!-- game title -->
+                {{game.title}}
+              </td>
+            </tr>
+          </ng-container>
+          <ng-template #noGamesWarning>
+            <tr>
+              <td colspan="2">
+                Hmm, you don't seem to have any games...
+              </td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
