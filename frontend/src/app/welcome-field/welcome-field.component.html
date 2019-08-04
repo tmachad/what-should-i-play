@@ -12,10 +12,16 @@
         <div class="input-group mb-3">
           <input type="text" class="form-control" placeholder="Steam ID" [(ngModel)]="steamId" aria-label="Steam ID">
           <div class="input-group-append">
-            <button class="btn btn-secondary" type="button" [routerLink]="['games']" [queryParams]="{steamId: steamId}">
+            <button class="btn btn-secondary" type="button" (click)="onFindGamesClick()">
               Find My Games
             </button>
           </div>
+        </div>
+        <div *ngIf="alertMsg" class="alert alert-danger" role="alert">
+          {{alertMsg}}
+          <button type="button" class="close" (click)="this.closeAlert()" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
         </div>
         <p class="text-secondary text-center">
           Your Steam profile must be publicly available.

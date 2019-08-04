@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-welcome-field',
@@ -8,10 +9,23 @@ import { Component, OnInit } from '@angular/core';
 export class WelcomeFieldComponent implements OnInit {
 
   private steamId: string;
+  private alertMsg: string;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  private closeAlert() {
+    this.alertMsg = "";
+  }
+
+  private onFindGamesClick() {
+    if (!this.steamId) {
+      this.alertMsg = "You need to provide your steam ID";
+    } else {
+      // TODO: add checking valid ID and for profile private/public setting
+      this.router.navigate(['games'], {queryParams: { steamId: this.steamId }});
+    }
+  }
 }
