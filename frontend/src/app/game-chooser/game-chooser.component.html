@@ -1,7 +1,29 @@
 <div class="row">
+  <div class="col">
+    <app-slot-reel [items]="games" #slotReel>
+      <ng-template let-game="item">
+        <div class="item-box d-flex flex-column">
+          <div class="flex-fill"></div>
+          <div class="row">
+            <div class="col text-center">
+              <img src="{{game.iconUrl}}">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col text-center">
+              <h5>{{game.title}}</h5>
+            </div>
+          </div>
+          <div class="flex-fill"></div>
+        </div>
+      </ng-template>
+    </app-slot-reel>
+  </div>
+</div>
+<div class="row">
   <div class="col text-center">
     <!-- Choose Game Button -->
-    <button class="btn btn-primary" [disabled]="!(games && games.length > 0)" type="button">
+    <button class="btn btn-primary" (click)="chooseGame()" [disabled]="!(games && games.length > 0)" type="button">
       <h2 class="m-3">
         Choose Game
       </h2>

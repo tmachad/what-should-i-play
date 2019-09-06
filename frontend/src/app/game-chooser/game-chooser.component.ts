@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { SteamService } from 'src/app/services/steam/steam.service';
 import { Game } from 'src/classes/game';
+import { SlotReelComponent } from 'src/app/slot-reel/slot-reel.component';
 
 @Component({
   selector: 'app-game-chooser',
@@ -10,6 +11,9 @@ import { Game } from 'src/classes/game';
   styleUrls: ['./game-chooser.component.scss']
 })
 export class GameChooserComponent implements OnInit {
+
+  @ViewChild("slotReel")
+  private slotReel: SlotReelComponent
 
   private games: Game[];
 
@@ -27,4 +31,7 @@ export class GameChooserComponent implements OnInit {
     }
   }
 
+  private chooseGame(): void {
+    this.slotReel.spin();
+  }
 }

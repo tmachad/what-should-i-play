@@ -1,0 +1,8 @@
+<div class="slot-reel">
+  <div class="reel" [@spin]="_spin ? 'end' : 'start'" (@spin.done)="spinDone($event)">
+    <ng-container *ngFor="let item of reelItems">
+      <ng-container *ngTemplateOutlet="itemTemplate; context: { item: item }">
+      </ng-container>
+    </ng-container>
+  </div>
+</div>

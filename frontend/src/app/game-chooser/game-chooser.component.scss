@@ -11,3 +11,21 @@ th {
     position: sticky;
     top: 0;
 }
+
+.bounding-box {
+    border: 1px solid red;
+}
+
+app-slot-reel {
+    margin: auto;
+    width: 100%;
+}
+
+.item-box {
+    height: 200px;
+    width: 100%;
+}
+
+.spacer {
+    margin: auto;
+}
