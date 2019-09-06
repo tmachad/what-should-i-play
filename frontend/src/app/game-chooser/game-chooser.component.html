@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col">
-    <app-slot-reel [items]="games" #slotReel>
+    <app-slot-reel [items]="games" (itemSelected)="itemSelected($event)" #slotReel>
       <ng-template let-game="item">
         <div class="item-box d-flex flex-column">
           <div class="flex-fill"></div>
@@ -23,9 +23,9 @@
 <div class="row">
   <div class="col text-center">
     <!-- Choose Game Button -->
-    <button class="btn btn-primary" (click)="chooseGame()" [disabled]="!(games && games.length > 0)" type="button">
+    <button class="btn btn-primary" (click)="chooseGame()" [disabled]="!buttonEnabled" type="button">
       <h2 class="m-3">
-        Choose Game
+        {{ buttonText }}
       </h2>
     </button>
   </div>

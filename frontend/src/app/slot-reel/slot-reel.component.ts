@@ -37,6 +37,7 @@ export class SlotReelComponent implements OnInit {
   private _spin: boolean = false;
   private reelItems: any[];
   private numberOfShownItems: number = 20;
+  private spinOnReset: boolean = false;
 
   constructor() { }
 
@@ -53,27 +54,30 @@ export class SlotReelComponent implements OnInit {
   private spinDone(event: AnimationEvent): void {
     if (event.toState === "end") {
       this.itemSelected.emit(this.reelItems[0]);
+    } else if (event.toState === "start" && this.spinOnReset) {
+      this.spin();
     }
   }
 
   /**
-   * Spin the slot reel! Resets the slot reel if it hasn't already been reset.
+   * Spin the slot reel! Resets the slot reel before spinning if it hasn't already been reset.
    *
    * @memberof SlotReelComponent
    */
   public spin(): void {
     if (this._spin) {
-      this.reset();
-    }
-    
-    let newReelItems = [];
-    for (let i = 0; i < this.numberOfShownItems; i++) {
-      let randIndex = Math.floor(Math.random() * this.items.length);
-      newReelItems.push(this.items[randIndex]);
-    }
-    this.reelItems = newReelItems;
+      // reel has already been spun, need to reset before spinning
+      this.reset(true);
+    } else {
+      let newReelItems = [];
+      for (let i = 0; i < this.numberOfShownItems; i++) {
+        let randIndex = Math.floor(Math.random() * this.items.length);
+        newReelItems.push(this.items[randIndex]);
+      }
+      this.reelItems = newReelItems;
 
-    this._spin = true;
+      this._spin = true;
+    }
   }
 
   /**
@@ -81,7 +85,8 @@ export class SlotReelComponent implements OnInit {
    *
    * @memberof SlotReelComponent
    */
-  public reset(): void {
+  public reset(spinAfterReset: boolean = false): void {
+    this.spinOnReset = spinAfterReset;
     this._spin = false;
   }
 }

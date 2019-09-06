@@ -16,6 +16,8 @@ export class GameChooserComponent implements OnInit {
   private slotReel: SlotReelComponent
 
   private games: Game[];
+  private buttonText: string = "Choose Game";
+  private buttonEnabled: boolean = false;
 
   constructor(private route: ActivatedRoute, private steam: SteamService) { }
 
@@ -24,6 +26,7 @@ export class GameChooserComponent implements OnInit {
     if (steamId) {
       this.steam.getGames(steamId).subscribe((g) => {
         this.games = g;
+        this.buttonEnabled = true;
       },
       (err: any) => {
         console.log(err);
@@ -32,6 +35,13 @@ export class GameChooserComponent implements OnInit {
   }
 
   private chooseGame(): void {
+    this.buttonEnabled = false;
+    this.buttonText = "Spinning!";
     this.slotReel.spin();
+  }
+
+  private itemSelected(item: Game) {
+    this.buttonEnabled = true;
+    this.buttonText = "Choose Game";
   }
 }
